@@ -18,7 +18,7 @@ const showProducts = (products) => {
       </div>
       <h4>${product.title.slice(0, 25)}</h4>
       <p>Category: ${product.category}</p>
-      <p>Avarage Rate:  ${product.rating.rate}</p>
+      <p>Ratings:  ${product.rating.rate}</p>
       <p>Total Rating:  ${product.rating.count}</p>
       <h4>Price: $ ${product.price}</h4>
       <button onclick="addToCart(${product.id},${
@@ -84,11 +84,3 @@ const updateTotal = () => {
     parseFloat(grandTotal).toFixed(2);
 };
 loadProducts();
-
-
-// var myModal = document.getElementById('myModal')
-// var myInput = document.getElementById('myInput')
-
-// myModal.addEventListener('shown.bs.modal', function () {
-//   myInput.focus()
-// })
