@@ -1,9 +1,10 @@
 const loadProducts = () => {
-  const url = `https://fakestoreapi.com/products`;
+  const url = `./api.json`;
   fetch(url)
     .then((response) => response.json())
     .then((data) => showProducts(data));
 };
+
 // show all product in UI
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
@@ -18,7 +19,6 @@ const showProducts = (products) => {
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
       <h5>Rate:  ${product.rating.rate}</h5>
-      <h4>${showRatings(product.rating.rate)}</h4>
       <h4>Total Rating:  ${product.rating.count}</h4>
       <h2>Price: $ ${product.price}</h2>
       <button onclick="addToCart(${product.id},${
@@ -30,30 +30,7 @@ const showProducts = (products) => {
     // Rating Showing Area
   }
 };
-// Product Reviews Function Area 
-const showRatings = (rating) => {
-  if (rating >= 5) {
-    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
-  } else if (rating >= 4.5) {
-    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>';
-  } else if (rating >= 4) {
-    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
-  } else if (rating >= 3) {
-    return '<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half"></i>';
-  } else if (rating >= 3) {
-    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
-  } else if (rating >= 2.5) {
-    return '<i class="fas fa-star"><i class="fas fa-star-half"></i>';
-  } else if (rating >= 2) {
-    return '<i class="fas fa-star"></i><i class="fas fa-star"></i>';
-  } else if (rating >= 1.5) {
-    return '<i class="fas fa-star"></i> <i class="fas fa-star-half"></i>';
-  } else if (rating >= 1) {
-    return '<i class="fas fa-star"></i>';
-  } else if (rating >= 0.5) {
-    return '<i class="fas fa-star-half"></i>';
-  }
-};
+
 
 let count = 0;
 const addToCart = (id, price) => {
