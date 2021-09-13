@@ -12,22 +12,21 @@ const showProducts = (products) => {
     const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
-    div.innerHTML = `<div class="single-product">
+    div.innerHTML = `<div class="single-product bg-white shadow-lg m-3">
       <div>
     <img class="product-image" src=${image}></img>
       </div>
-      <h3>${product.title}</h3>
+      <h4>${product.title.slice(0, 25)}</h4>
       <p>Category: ${product.category}</p>
-      <h5>Rate:  ${product.rating.rate}</h5>
-      <h4>Total Rating:  ${product.rating.count}</h4>
-      <h2>Price: $ ${product.price}</h2>
+      <p>Avarage Rate:  ${product.rating.rate}</p>
+      <p>Total Rating:  ${product.rating.count}</p>
+      <h4>Price: $ ${product.price}</h4>
       <button onclick="addToCart(${product.id},${
       product.price
-    })" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+    })" id="addToCart-btn" class="buy-now btn btn-success">Add To Cart</button>
+      <button id="details-btn" class="btn btn-outline-danger">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
-    // Rating Showing Area
   }
 };
 
@@ -85,3 +84,11 @@ const updateTotal = () => {
     parseFloat(grandTotal).toFixed(2);
 };
 loadProducts();
+
+
+// var myModal = document.getElementById('myModal')
+// var myInput = document.getElementById('myInput')
+
+// myModal.addEventListener('shown.bs.modal', function () {
+//   myInput.focus()
+// })
