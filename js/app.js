@@ -4,13 +4,11 @@ const loadProducts = () => {
     .then((response) => response.json())
     .then((data) => showProducts(data));
 };
-loadProducts();
-
-// show all product in UI 
+// show all product in UI
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
-    const image = product.images;
+    const image = product.image;
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `<div class="single-product">
@@ -19,25 +17,55 @@ const showProducts = (products) => {
       </div>
       <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
+      <h5>Rate:  ${product.rating.rate}</h5>
+      <h4>${showRatings(product.rating.rate)}</h4>
+      <h4>Total Rating:  ${product.rating.count}</h4>
       <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
+      <button onclick="addToCart(${product.id},${
+      product.price
+    })" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
       <button id="details-btn" class="btn btn-danger">Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
+    // Rating Showing Area
   }
 };
+// Product Reviews Function Area 
+const showRatings = (rating) => {
+  if (rating >= 5) {
+    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+  } else if (rating >= 4.5) {
+    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i>';
+  } else if (rating >= 4) {
+    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+  } else if (rating >= 3) {
+    return '<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half"></i>';
+  } else if (rating >= 3) {
+    return '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+  } else if (rating >= 2.5) {
+    return '<i class="fas fa-star"><i class="fas fa-star-half"></i>';
+  } else if (rating >= 2) {
+    return '<i class="fas fa-star"></i><i class="fas fa-star"></i>';
+  } else if (rating >= 1.5) {
+    return '<i class="fas fa-star"></i> <i class="fas fa-star-half"></i>';
+  } else if (rating >= 1) {
+    return '<i class="fas fa-star"></i>';
+  } else if (rating >= 0.5) {
+    return '<i class="fas fa-star-half"></i>';
+  }
+};
+
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
   updatePrice("price", price);
-
   updateTaxAndCharge();
   document.getElementById("total-Products").innerText = count;
+  updateTotal();
 };
-
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
-  const converted = parseInt(element);
+  const converted = parseFloat(element);
   return converted;
 };
 
@@ -45,13 +73,13 @@ const getInputValue = (id) => {
 const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
-  const total = convertedOldPrice + convertPrice;
-  document.getElementById(id).innerText = Math.round(total);
+  const total = parseFloat(convertedOldPrice + convertPrice);
+  document.getElementById(id).innerText = total.toFixed(2);
 };
 
 // set innerText function
 const setInnerText = (id, value) => {
-  document.getElementById(id).innerText = Math.round(value);
+  document.getElementById(id).innerText = value.toFixed(2);
 };
 
 // update delivery charge and total Tax
@@ -70,11 +98,13 @@ const updateTaxAndCharge = () => {
     setInnerText("total-tax", priceConverted * 0.4);
   }
 };
-
 //grandTotal update function
 const updateTotal = () => {
   const grandTotal =
-    getInputValue("price") + getInputValue("delivery-charge") +
+    getInputValue("price") +
+    getInputValue("delivery-charge") +
     getInputValue("total-tax");
-  document.getElementById("total").innerText = grandTotal;
+  document.getElementById("total").innerText =
+    parseFloat(grandTotal).toFixed(2);
 };
+loadProducts();
