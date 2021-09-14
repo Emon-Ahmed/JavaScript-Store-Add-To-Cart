@@ -48,9 +48,9 @@ Cart Section STYLE
   position: fixed;
 }
 
-/*-------------
-  Media Query
---------------*/
+/*--------------------------
+  Media Query Max-width: 768
+----------------------------*/
 @media only screen and (max-width: 768px) {
   #all-products {
     display: grid;
@@ -59,15 +59,17 @@ Cart Section STYLE
   .cart {
     width: 300px;
     padding: 10px;
-    box-shadow: 10px 10px 20px gray;
     border-radius: 5px;
-    margin-right: 30px;
-    position: fixed;
+    margin: auto;
+    position: relative;
   }
   .cart-main {
     padding-right: 10px;
   }
 }
+/*--------------------------
+  Media Query Max-width: 468
+----------------------------*/
 @media only screen and (max-width: 468px) {
   #all-products {
     display: grid;
