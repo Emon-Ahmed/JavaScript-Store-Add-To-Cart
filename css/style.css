@@ -28,6 +28,13 @@ Product Section STYLE
   padding: 10px;
   transition: 0.6s;
 }
+.product {
+  transition: 0.7s;
+}
+.product:hover {
+  margin-top: -20px;
+  transition: 0.7s;
+}
 .product-image {
   width: 200px;
   height: 240px;
