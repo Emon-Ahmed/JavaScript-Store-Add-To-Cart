@@ -1,3 +1,4 @@
+// Fetch All Data From API.JSON File
 const loadProducts = () => {
   const url = `./api.json`;
   fetch(url)
@@ -5,7 +6,7 @@ const loadProducts = () => {
     .then((data) => showProducts(data));
 };
 
-// show all product in UI
+// Show All Products in UI
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
@@ -16,10 +17,10 @@ const showProducts = (products) => {
       <div>
     <img class="product-image" src=${image}></img>
       </div>
-      <h4>${product.title.slice(0, 26)}</h4>
+      <h4>${product.title.slice(0, 26)}</h4><hr>
       <p>Category: ${product.category}</p>
-      <p>Ratings:  ${product.rating.rate}</p>
-      <p>Total Reviews:  ${product.rating.count}</p>
+      <p>Rating:  ${product.rating.rate}</p>
+      <p>Total Reviews:  ${product.rating.count}</p><hr>
       <h4>Price: $ ${product.price}</h4>
       <button onclick="addToCart(${product.id},${
       product.price
@@ -30,7 +31,7 @@ const showProducts = (products) => {
   }
 };
 
-
+// Add To Cart With updateTotal() Function call
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
@@ -39,13 +40,15 @@ const addToCart = (id, price) => {
   document.getElementById("total-Products").innerText = count;
   updateTotal();
 };
+
+// Get Input Value Function 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
   const converted = parseFloat(element);
   return converted;
 };
 
-// main price update function
+// Main Price Update Function
 const updatePrice = (id, value) => {
   const convertedOldPrice = getInputValue(id);
   const convertPrice = parseFloat(value);
@@ -53,12 +56,12 @@ const updatePrice = (id, value) => {
   document.getElementById(id).innerText = total.toFixed(2);
 };
 
-// set innerText function
+// Set innerText Function With Two Decimal 
 const setInnerText = (id, value) => {
   document.getElementById(id).innerText = value.toFixed(2);
 };
 
-// update delivery charge and total Tax
+// Update Delivery Charge & Total Tax
 const updateTaxAndCharge = () => {
   const priceConverted = getInputValue("price");
   if (priceConverted > 200) {
@@ -74,7 +77,8 @@ const updateTaxAndCharge = () => {
     setInnerText("total-tax", priceConverted * 0.4);
   }
 };
-//grandTotal update function
+
+//GrandTotal Update Function
 const updateTotal = () => {
   const grandTotal =
     getInputValue("price") +
@@ -83,4 +87,6 @@ const updateTotal = () => {
   document.getElementById("total").innerText =
     parseFloat(grandTotal).toFixed(2);
 };
+
+// loadProducts() Function Call
 loadProducts();
